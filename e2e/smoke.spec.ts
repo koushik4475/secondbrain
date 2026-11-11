@@ -50,7 +50,7 @@ test('imports Markdown as a new note', async ({ page }) => {
   await page.locator('input[aria-label="Import Markdown file"]').setInputFiles({
     name: 'field-notes.md',
     mimeType: 'text/markdown',
-    buffer: Buffer.from('# Imported field notes\\n\\nA note from a portable Markdown file.')
+    buffer: Buffer.from(['# Imported field notes', '', 'A note from a portable Markdown file.'].join('\n'))
   })
   await expect(page.getByLabel('Note title')).toHaveValue('Imported field notes')
   await expect(page.locator('.cm-content')).toContainText('A note from a portable Markdown file.')

@@ -135,7 +135,7 @@ export default function Editor({ note, collections, allNotes, fontSize, onChange
           setBookmarkUrl(safe)
           onChange({ sourceUrl: safe })
           setUrlError(value && !safe ? 'Only valid HTTP or HTTPS links are allowed.' : '')
-        }} placeholder="https://example.com" aria-label="Source URL" />
+        }} placeholder="https://example.com" aria-label="Bookmark URL" />
         {urlError && <small className="field-error" role="alert">{urlError}</small>}
         <label className="field-label" htmlFor="bookmark-summary">Short summary (optional)</label>
         <textarea id="bookmark-summary" className="summary-input" value={note.summary} onChange={(event) => onChange({ summary: event.target.value })} placeholder="Why is this link worth saving?" rows={2}/>
