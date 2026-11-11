@@ -29,7 +29,7 @@ npm run build
 ```
 
 ## Deployment
-Deploy to Cloudflare Pages with production branch `main`, build command `npm run build`, output directory `dist`. No environment variables are required.
+Deploys to Cloudflare Pages from `main` with build command `npm run build` and output directory `dist`. No environment variables are required. The Pages project is named `secondbrain` and uses `secondbrain-dbs.pages.dev`.
 
 ## Import/export
 Use Settings to export a versioned JSON backup or merge a validated backup. Keep a separate copy of backups outside this browser.
