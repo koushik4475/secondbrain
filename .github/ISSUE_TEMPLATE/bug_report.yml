@@ -1,0 +1,16 @@
+name: Bug report
+description: Report a reproducible problem
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Do not attach private notes or exports.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
