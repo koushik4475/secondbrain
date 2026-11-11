@@ -1,23 +1,31 @@
 # SecondBrain
 
-A calm, local-first personal knowledge workspace for notes, ideas, meeting notes, learning material, code snippets and bookmarks.
+SecondBrain is a local-first personal knowledge workspace for notes, ideas, meeting notes, learning material, code snippets and bookmarks.
 
-## Features
-- Fast capture with `Ctrl/Cmd + N`; focus search with `Ctrl/Cmd + K`
-- Markdown editor with safe preview, tags and autosave
-- Six note types, pin/archive/trash and restore
-- Local full-text filtering across title, body, tags and URL
-- JSON backup export and validated merge import
-- Dark/light/system appearance; installable offline app shell
-- IndexedDB storage through Dexie; no account, cloud sync, analytics or AI API
+## V1 capabilities
 
-## Privacy and storage
-All content is stored in this browser profile's IndexedDB. It is not encrypted, synced, or uploaded. Clearing browser data or switching devices can remove access. Export backups regularly. Do not store passwords, OTPs, recovery codes or identity scans.
+- Quick capture with **Ctrl/Cmd + N** and a command palette with **Ctrl/Cmd + K**.
+- Markdown editor with sanitized preview, internal `[[Note title]]` links, backlinks and IndexedDB-backed autosave.
+- Six note types: note, idea, meeting, learning, code and bookmark.
+- Tags with cross-note management; collections can be created, renamed, filtered and deleted without deleting their notes.
+- Offline full-text search across title, body, tags, bookmark summary and URL, plus type, tag, collection, pinned and updated-date filters.
+- Pin, archive, restore and trash flows; permanent deletion requires confirmation.
+- CodeMirror language highlighting for JavaScript, TypeScript, Python, JSON and Bash, with a read-only preview and copy action. Saved code is never executed.
+- Bookmarks with HTTP/HTTPS validation and an optional manually written summary. No automatic page scraping.
+- Individual Markdown export, Markdown archive export and a versioned JSON backup.
+- JSON import validates the complete file before showing a preview. Merge keeps existing data and imports ID collisions as separate copies; replace is an explicit destructive action.
+- System/light/dark themes, editor text size, keyboard help and confirmed clear-all-data action.
+- Installable PWA shell; application assets are precached for offline use after a successful first load.
 
-Markdown preview disables raw HTML and sanitizes rendered output. External source URLs are restricted to HTTP/HTTPS. Saved code is never executed.
+## Storage and privacy
+
+Notes, tags, collections and preferences are stored in this browser profile's IndexedDB. They are not encrypted, synced, uploaded or backed by an account. Clearing site data, using private browsing, or changing devices can remove access. Export backups regularly and store a copy outside the browser. Do not store passwords, OTPs, recovery codes or identity scans.
+
+Markdown raw HTML is disabled and rendered output is sanitized. Markdown image embeds are not automatically loaded. Bookmark URLs accept only HTTP and HTTPS. The app makes no AI API, analytics or cloud-sync calls.
 
 ## Development
-Requires Node.js 20+.
+
+Requires Node.js 24+.
 
 ```bash
 npm install
@@ -26,13 +34,19 @@ npm run lint
 npm run typecheck
 npm test
 npm run build
+npx playwright install chromium
+npm run e2e
 ```
 
+The CI workflow runs the same lint, type-check, unit, production build and Playwright browser tests on pushes and pull requests to `main`.
+
 ## Deployment
-Deploys to Cloudflare Pages from `main` with build command `npm run build` and output directory `dist`. No environment variables are required. The Pages project is named `secondbrain` and uses `secondbrain-dbs.pages.dev`.
 
-## Import/export
-Use Settings to export a versioned JSON backup or merge a validated backup. Keep a separate copy of backups outside this browser.
+The public GitHub repository is connected to Cloudflare Pages. Production builds use `npm run build`, publish `dist`, and require no environment variables.
 
-## Limitations
-V1 does not include cloud sync, accounts, collaboration, semantic search, automatic bookmark extraction, native mobile apps, or encrypted-vault guarantees.
+- Production: https://secondbrain-dbs.pages.dev
+- Repository: https://github.com/koushik4475/secondbrain
+
+## Backup and portability
+
+Use Settings to export a versioned JSON backup containing notes, tags, collections and preferences. You can also export an individual note or the non-deleted workspace as Markdown. Validate and preview JSON backups before choosing Merge or Replace.
