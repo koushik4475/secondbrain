@@ -6,6 +6,7 @@ test.beforeEach(async ({ page }) => {
 
 test('captures a note, tags it, and keeps it after reload', async ({ page }) => {
   await expect(page.getByText('Your second brain, at your fingertips.')).toBeVisible()
+  await page.screenshot({ path: 'docs/screenshots/workspace.png', fullPage: true })
   await page.getByRole('button', { name: /Create a note/i }).click()
   await page.getByLabel('Note title').fill('E2E offline capture')
   await page.locator('.cm-content').fill('A durable thought for the smoke test.')
