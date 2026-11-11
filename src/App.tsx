@@ -33,14 +33,18 @@ export default function App() {
     window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey)
   })
   const visible = useMemo(() => notes.filter(n => {
-    if (filter === 'trash') return n.deletedAt !== null
-    if (filter.startsWith('collection:')) return n.collectionId === filter.slice('collection:'.length) && n.deletedAt === null && n.archivedAt === null
-    if (filter === 'archive') return n.archivedAt !== null && n.deletedAt === null
-    if (n.deletedAt || n.archivedAt) return false
-    if (filter === 'pinned' && !n.pinned) return false
-    if (filter.startsWith('type:') && n.type !== filter.slice(5)) return false
+    if (filter === 'trash') {
+      if (n.deletedAt === null) return false
+    } else if (filter === 'archive') {
+      if (n.archivedAt === null || n.deletedAt !== null) return false
+    } else {
+      if (n.deletedAt !== null || n.archivedAt !== null) return false
+      if (filter === 'pinned' && !n.pinned) return false
+      if (filter.startsWith('type:') && n.type !== filter.slice(5)) return false
+      if (filter.startsWith('collection:') && n.collectionId !== filter.slice('collection:'.length)) return false
+    }
     const q = query.toLowerCase().trim()
-    return !q || [n.title,n.bodyMarkdown,n.sourceUrl,...n.tags].join(' ').toLowerCase().includes(q)
+    return !q || [n.title, n.bodyMarkdown, n.sourceUrl, ...n.tags].join(' ').toLowerCase().includes(q)
   }), [notes, query, filter])
   const active = draft ?? visible.find(n => n.id === selected) ?? notes.find(n => n.id === selected) ?? null
   async function create(type: NoteType = 'note') {
