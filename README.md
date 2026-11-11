@@ -1,6 +1,6 @@
 # SecondBrain
 
-![SecondBrain workspace](docs/screenshots/workspace.png)
+![SecondBrain workspace](docs/screenshots/workspace.jpg)
 
 SecondBrain is a local-first personal knowledge workspace for notes, ideas, meeting notes, learning material, code snippets and bookmarks.
 
