@@ -3,6 +3,8 @@ import { Archive, BookOpen, Folder, Inbox, Moon, Pin, Plus, Search, Settings, Sp
 import { db, saveNote, exportBackup, importBackup } from './db'
 import type { Collection, Note, NoteType } from './types'
 import { noteTypes, uid } from './types'
+
+// App data stays in browser-local IndexedDB; this UI never uploads note content.
 import Editor from './Editor'
 
 const blank = (type: NoteType = 'note', collectionId: string | null = null): Note => ({ id: uid(), title: '', bodyMarkdown: '', type, collectionId, tags: [], pinned: false, archivedAt: null, deletedAt: null, sourceUrl: '', codeLanguage: 'javascript', createdAt: Date.now(), updatedAt: Date.now() })
