@@ -1,4 +1,7 @@
-# SecondBrain
+# SecondBrain | Local-First Markdown Notes and Personal Knowledge Management App
+
+SecondBrain is a local-first personal knowledge management workspace for capturing notes, ideas, meeting records, learning material, code snippets, and bookmarks. It includes Markdown editing, tags, collections, internal note links and backlinks, offline search, and JSON/Markdown export and backup. Notes are stored in browser-local IndexedDB, so users retain control of their data but must manage their own backups and device migration.
+
 
 ![SecondBrain workspace](docs/screenshots/workspace.jpg)
 
