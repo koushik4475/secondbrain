@@ -4,7 +4,7 @@ import { renderMarkdown } from './markdown';
 describe('Markdown link sanitization', () => {
   it('removes executable javascript hrefs', () => {
     const rendered = renderMarkdown('[unsafe](javascript:alert(1))');
-    expect(rendered).not.toMatch(/href\\s*=\\s*["']?javascript:/i);
+    expect(rendered.toLowerCase()).not.toContain('javascript:');
   });
   it('retains safe HTTPS links', () => {
     const rendered = renderMarkdown('[docs](https://example.com/docs)');
