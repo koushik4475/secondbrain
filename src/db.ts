@@ -143,7 +143,15 @@ export async function importBackup(raw: string, mode: 'merge' | 'replace') {
     for (const collection of parsed.collections) {
       const id = existingCollections.has(collection.id) ? crypto.randomUUID() : collection.id
       collectionIds.set(collection.id, id)
-      await db.collections.put({ ...collection, id })
+    }
+    // Remap parent references after all IDs are known, so nested collections
+    // remain attached even when their parent ID collides during a merge.
+    for (const collection of parsed.collections) {
+      await db.collections.put({
+        ...collection,
+        id: collectionIds.get(collection.id)!,
+        parentId: collection.parentId ? (collectionIds.get(collection.parentId) ?? collection.parentId) : null
+      })
     }
 
     const safeNotes = parsed.notes.map((note) => ({
